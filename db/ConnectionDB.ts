@@ -1,9 +1,11 @@
-import env from '../config/EnvConfig';
 import { connect, Connection } from 'mongoose';
+import dotenv from 'dotenv'
 
-const user = env.DB_USER;
-const password = env.DB_PASSWORD;
-const dbName = env.DB_NAME;
+dotenv.config();
+
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+const dbName = process.env.DB_NAME;
 const uri = `mongodb+srv://${user}:${password}@${dbName}.diqj3vd.mongodb.net/?retryWrites=true&w=majority`;
 
 class ConnectionDB {

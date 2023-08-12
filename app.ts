@@ -1,17 +1,17 @@
 import express, { Application } from "express";
 import { RoutesInterface } from "./interfaces/RoutesInterface";
 import routemap from "express-routemap";
-import env from "./config/EnvConfig";
 import chalk from "chalk";
 import session from "express-session";
 import morgan from "morgan";
 import cors from "cors";
-// import { authJWTMiddleware } from "./middleware/AuthMiddleware";
-// import { authRoutes } from "./routes/AuthRoutes";
 import { ConnectionDB } from "./db/ConnectionDB";
 import passport from "passport";
 import { authRoutes } from "./routes/AuthRoutes";
 import { authJWTMiddleware } from "./middleware/AuthJWTMiddleware";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class App extends ConnectionDB {
   public app: Application;
@@ -21,7 +21,7 @@ class App extends ConnectionDB {
   constructor(routes: RoutesInterface[]) {
     super();
     this.app = express();
-    this.port = Number(env.PORT) || 5000;
+    this.port = Number(process.env.PORT) || 5000;
     this.initMiddlewares();
     this.initRoutes(routes);
     this.initConnection();
@@ -47,7 +47,7 @@ class App extends ConnectionDB {
         )
       );
       console.log(
-        chalk.green.bold(`🌐 ¡Se ha establecido la conexión a: ${env.DB_NAME}!`)
+        chalk.green.bold(`🌐 ¡Se ha establecido la conexión a: ${process.env.DB_NAME}!`)
       );
       console.log(
         chalk.blue(
@@ -68,7 +68,7 @@ class App extends ConnectionDB {
     this.app.use(morgan("dev"));
     this.app.use(
       session({
-        secret: "env.JWT_PRIVATE_KEY",
+        secret: "process.env.JWT_PRIVATE_KEY",
         resave: false,
         saveUninitialized: false,
       })
@@ -78,10 +78,10 @@ class App extends ConnectionDB {
   }
 
   private initRoutes(routes: RoutesInterface[]) {
-    this.app.use(`/api/${env.API_VERSION}`, authRoutes.router);
+    this.app.use(`/api/${process.env.API_VERSION}`, authRoutes.router);
     routes.forEach((route) => {
       this.app.use(
-        `/api/${env.API_VERSION}`,
+        `/api/${process.env.API_VERSION}`,
         authJWTMiddleware.validateToken,
         route.router
       );
@@ -101,7 +101,7 @@ class App extends ConnectionDB {
       );
       console.log(
         chalk.green.bold(
-          `🚀 ¡El servidor se ha levantado exitosamente en http://${env.HOST}:${env.PORT}!`
+          `🚀 ¡El servidor se ha levantado exitosamente en http://${process.env.HOST}:${process.env.PORT}!`
         )
       );
       console.log(
