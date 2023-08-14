@@ -35,7 +35,6 @@ class VotanteSchema {
         },
         telefono: {
           type: Number,
-          unique: true,
           trim: true,
         },
         direccion: {
@@ -66,7 +65,6 @@ class VotanteSchema {
           {
             type: Object,
             required: false,
-            unique: true,
             trim: true,
           },
         ],
