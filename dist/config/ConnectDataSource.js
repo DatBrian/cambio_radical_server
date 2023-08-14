@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dataSource = void 0;
-const EnvConfig_1 = __importDefault(require("./EnvConfig"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const password = EnvConfig_1.default.DB_PASSWORD;
+dotenv_1.default.config();
+const password = process.env.DB_PASSWORD;
 const connectionString = `mongodb+srv://webcoldeveloping:${password}@cambioradicaldb.diqj3vd.mongodb.net/?retryWrites=true&w=majority`;
 class DataSource {
     connect;
