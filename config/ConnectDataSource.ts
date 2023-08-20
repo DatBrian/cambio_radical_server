@@ -1,7 +1,8 @@
-import env from "./EnvConfig";
+import dotenv  from 'dotenv';
 import mongoose from 'mongoose';
+dotenv.config();
 
-const password = env.DB_PASSWORD;
+const password = process.env.DB_PASSWORD;
 const connectionString = `mongodb+srv://webcoldeveloping:${password}@cambioradicaldb.diqj3vd.mongodb.net/?retryWrites=true&w=majority`;
 
 class DataSource {

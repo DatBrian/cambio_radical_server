@@ -4,11 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectionDB = void 0;
-const EnvConfig_1 = __importDefault(require("../config/EnvConfig"));
 const mongoose_1 = require("mongoose");
-const user = EnvConfig_1.default.DB_USER;
-const password = EnvConfig_1.default.DB_PASSWORD;
-const dbName = EnvConfig_1.default.DB_NAME;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+const dbName = process.env.DB_NAME;
 const uri = `mongodb+srv://${user}:${password}@${dbName}.diqj3vd.mongodb.net/?retryWrites=true&w=majority`;
 class ConnectionDB {
     mongooseConnection;
