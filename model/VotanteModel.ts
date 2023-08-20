@@ -86,6 +86,10 @@ class VotanteSchema {
           type: String,
           trim: true,
         },
+        observaciones: {
+          type: String,
+          trim: true,
+        },
       },
       {
         timestamps: true,

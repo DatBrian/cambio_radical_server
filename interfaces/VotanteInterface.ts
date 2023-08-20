@@ -19,4 +19,5 @@ export interface IVotante extends Document {
   MesaVotacion: number;
   compromiso: string;
   fidelidad: string;
+  observaciones: string;
 }
