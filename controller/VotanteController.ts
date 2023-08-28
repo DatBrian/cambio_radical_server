@@ -7,9 +7,10 @@ export class VotanteController {
     this.service = votanteServices;
   }
 
-  public getAllVotante = async (_req: Request, res: Response) => {
+  public getAllVotante = async (req: Request, res: Response) => {
     try {
-      const Votantes = await this.service.getAllVotantes();
+      const query = req.query;
+      const Votantes = await this.service.getAllVotantes(query);
       res.json(Votantes);
     } catch (error) {
       console.error("Error al obtener los votantes:", error);
@@ -48,6 +49,19 @@ export class VotanteController {
     }
   };
 
+  public getFilteredVotantes = async (req: Request, res: Response) => {
+    try {
+      const body = await req.body;
+      const votantes = await this.service.getFilteredVotantes(body);
+      res.json(votantes);
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Ocurrió un error al insertar el votante",
+        message: error.message,
+      });
+    }
+  };
+
   public updateVotante = async (req: Request, res: Response) => {
     try {
       const body = await req.body;
@@ -72,6 +86,29 @@ export class VotanteController {
       res.status(500).json({
         error:
           "Ocurrió un error al eliminar el votante, revise la consola para más información",
+      });
+    }
+  };
+
+  public getCount = async (req: Request, res: Response) => {
+    try {
+      let body;
+
+      if (req.params) {
+        body = {
+          type: req.params.type,
+          value: req.params.value,
+        };
+      }
+
+      const count = body
+        ? await this.service.getCount(body)
+        : await this.service.getCount();
+      res.json(count);
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Ocurrió un error al obtener la cuenta",
+        message: error.message,
       });
     }
   };

@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IVotante } from "../interfaces/VotanteInterface";
+import  mongoosePaginate from 'mongoose-paginate-v2'
 
 class VotanteSchema {
   private schema: Schema<IVotante>;
@@ -97,6 +98,8 @@ class VotanteSchema {
         versionKey: false,
       }
     );
+
+    this.schema.plugin(mongoosePaginate);
 
     this.schema.set("toJSON", {
       transform: (_document, returnedObject) => {

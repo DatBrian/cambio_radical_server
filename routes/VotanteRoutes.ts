@@ -27,6 +27,13 @@ class VotanteRoutes extends RouterCommon<VotanteController> {
     this.router.get(`${this.path}/id`, rolesMiddleware.isAdmin, (req, res) => {
       this.controller.getVotanteById(req, res);
     });
+    this.router.get(
+      `${this.path}/count/:type?/:value?`,
+      rolesMiddleware.isAdmin,
+      (req, res) => {
+        this.controller.getCount(req, res);
+      }
+    );
     this.router.post(
       `${this.path}/create`,
       rolesMiddleware.isUser,
@@ -37,6 +44,13 @@ class VotanteRoutes extends RouterCommon<VotanteController> {
     this.router.post(`${this.path}/verifyDoc`, (req, res) => {
       rolesMiddleware.isUser, this.controller.verifyDoc(req, res);
     });
+    this.router.post(
+      `${this.path}/filter`,
+      rolesMiddleware.isAdmin,
+      (req, res) => {
+        this.controller.getFilteredVotantes(req, res);
+      }
+    );
     this.router.put(
       `${this.path}/update`,
       rolesMiddleware.isAdmin,
