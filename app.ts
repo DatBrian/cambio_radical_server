@@ -17,7 +17,6 @@ class App extends ConnectionDB {
     public app: Application;
     public port: number;
     public server: any;
-    private whiteList: any;
 
     constructor(routes: RoutesInterface[]) {
         super();
@@ -26,10 +25,7 @@ class App extends ConnectionDB {
         this.initMiddlewares();
         this.initRoutes(routes);
         this.initConnection();
-        this.whiteList = [
-            "https://cambio-radical.netlify.app/",
-            "http://localhost:8080",
-        ];
+
     }
 
     public getServer() {
@@ -73,7 +69,7 @@ class App extends ConnectionDB {
 
     private initMiddlewares() {
         this.app.use(express.json());
-        this.app.use(cors({ origin: this.whiteList }));
+        this.app.use(cors());
         this.app.use(morgan("dev"));
         this.app.use(
             session({
