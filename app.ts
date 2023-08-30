@@ -27,7 +27,7 @@ class App extends ConnectionDB {
         this.initRoutes(routes);
         this.initConnection();
         this.whiteList = [
-            "https://cambioradicalserver.up.railway.app/",
+            "https://cambio-radical.netlify.app/",
             "http://localhost:8080",
         ];
     }
