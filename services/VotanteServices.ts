@@ -9,6 +9,10 @@ class VotanteServices {
     this.repository = votanteRepository;
   }
 
+  public async getAll(): Promise<any>{
+    return await this.repository.getAll();
+  }
+
   public async getAllVotantes(query: any): Promise<any> {
     const page = query.page;
     return this.repository.getAllVotantes(page);

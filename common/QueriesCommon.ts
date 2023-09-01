@@ -46,7 +46,6 @@ abstract class QueriesCommon<ModelType extends Document> {
         }
       );
 
-
       return query;
     } catch (error) {
       console.error("Error executing query:", error);
@@ -57,9 +56,7 @@ abstract class QueriesCommon<ModelType extends Document> {
   protected async getAll(): Promise<LeanDocument<ModelType>[]> {
     try {
       await this.connection.connect();
-      const query = this.model.find();
-      const docs: LeanDocument<ModelType>[] = await query.exec();
-      return docs;
+      return await this.model.find();
     } catch (error) {
       console.error("Error executing query:", error);
       throw new Error("Error executing query");

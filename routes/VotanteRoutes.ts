@@ -19,8 +19,10 @@ class VotanteRoutes extends RouterCommon<VotanteController> {
   }
 
   private initRoutes() {
+    this.router.get(`${this.path}/all`, rolesMiddleware.isAdmin,
+      this.controller.getAll);
     this.router.get(
-      `${this.path}/all`,
+      `${this.path}/filter`,
       rolesMiddleware.isAdmin,
       this.controller.getAllVotante
     );
