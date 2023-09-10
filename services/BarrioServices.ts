@@ -37,6 +37,11 @@ class BarrioServices {
     const doc = body.doc;
     return this.repository.verifyDoc(doc);
   }
+  
+  public async verifyBarrio(body: any): Promise<boolean>{
+    const barrio = body.name;
+    return this.repository.verifyBarrio(barrio);
+  }
 }
 
 export default BarrioServices;

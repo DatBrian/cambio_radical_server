@@ -1,42 +1,47 @@
 import PuestoRepository, {
-  puestoRepository,
+    puestoRepository,
 } from "../repositories/PuestoRepository";
 
 class PuestoServices {
-  private repository: PuestoRepository;
+    private repository: PuestoRepository;
 
-  constructor() {
-    this.repository = puestoRepository;
-  }
+    constructor() {
+        this.repository = puestoRepository;
+    }
 
-  public async getAllPuestos(): Promise<any> {
-    return this.repository.getAllPuestos();
-  }
+    public async getAllPuestos(): Promise<any> {
+        return this.repository.getAllPuestos();
+    }
 
-  public async getPuestoByID(body: any): Promise<any> {
-    const id = body.id;
-    return this.repository.getPuestoById(id);
-  }
+    public async getPuestoByID(body: any): Promise<any> {
+        const id = body.id;
+        return this.repository.getPuestoById(id);
+    }
 
-  public async insertPuesto(body: any): Promise<string> {
-    return this.repository.insertPuesto(body);
-  }
+    public async insertPuesto(body: any): Promise<string> {
+        return this.repository.insertPuesto(body);
+    }
 
-  public async updatePuesto(body: any): Promise<any> {
-    const id = body.id;
-    delete body.id;
-    return this.repository.updatePuesto(id, body);
-  }
+    public async updatePuesto(body: any): Promise<any> {
+        const id = body.id;
+        delete body.id;
+        return this.repository.updatePuesto(id, body);
+    }
 
-  public async deletePuesto(body: any): Promise<string> {
-    const id = body.id;
-    return this.repository.deletePuesto(id);
-  }
+    public async deletePuesto(body: any): Promise<string> {
+        const id = body.id;
+        return this.repository.deletePuesto(id);
+    }
 
-  public async verifyDoc(body: any): Promise<boolean> {
-    const doc = body.doc;
-    return this.repository.verifyDoc(doc);
-  }
+    public async verifyDoc(body: any): Promise<boolean> {
+        const doc = body.doc;
+        return this.repository.verifyDoc(doc);
+    }
+
+    public async verifyPuesto(body: any): Promise<boolean> {
+        const puesto = body.name;
+        return this.repository.verifyPuesto(puesto);
+    }
 }
 
 export default PuestoServices;

@@ -89,6 +89,19 @@ export class BarrioController {
       });
     }
   };
+
+  public verifyBarrio = async (req: Request, res: Response) => {
+    try {
+      const body = await req.body;
+      const vrified = await this.service.verifyBarrio(body);
+      res.json(vrified);
+    } catch (error) {
+            console.error("Error al verificar el barrio:", error);
+            res.status(500).json({
+                error: "Ocurrió un error al verificar el barrio, revise la consola para más información",
+            });
+    }
+  }
 }
 export default BarrioController;
 export const barrioController = new BarrioController();

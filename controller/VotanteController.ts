@@ -7,10 +7,10 @@ export class VotanteController {
         this.service = votanteServices;
     }
 
-    public getAll = async (_req:Request, res:Response) => {
+    public getAll = async (_req: Request, res: Response) => {
         try {
             const votantes = await this.service.getAll();
-          res.json(votantes);
+            res.json(votantes);
         } catch (error) {
             console.error("Error al obtener los votantes:", error);
             throw new Error("Error al obtener los votantes");
@@ -127,6 +127,18 @@ export class VotanteController {
             console.error("Error al verificar el documento:", error);
             res.status(500).json({
                 error: "Ocurrió un error al verificar el documento, revise la consola para más información",
+            });
+        }
+    };
+
+    public getLideres = async (_req: Request, res: Response) => {
+        try {
+            const lideres = await this.service.getLideres();
+            res.json(lideres);
+        } catch (error) {
+            console.error("Error al obtener los líderes:", error);
+            res.status(500).json({
+                error: "Ocurrió un error al obtener los líderes, revise la consola para más información",
             });
         }
     };

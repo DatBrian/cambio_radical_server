@@ -25,6 +25,9 @@ class PuestoRoutes extends RouterCommon<PuestoController> {
     this.router.post(`${this.path}/create`, (req, res) => {
       this.controller.insertPuesto(req, res);
     });
+    this.router.post(`${this.path}/verifyPuesto`, (req, res) => {
+      this.controller.verifyBarrio(req, res )
+    });
     this.router.put(`${this.path}/update`, (req, res) => {
       this.controller.updatePuesto(req, res);
     });

@@ -65,6 +65,16 @@ class PuestoRepository extends QueriesCommon<IPuesto> {
       throw new Error("Error al verificar el Puesto");
     }
   }
+
+  public async verifyPuesto(puesto: string): Promise<any>{
+    try {
+      const exist = await this.model.findOne({ name: puesto });
+      return exist ? true : false;
+    } catch (error) {
+      console.error("Error al verificar el Puesto:", error);
+      throw new Error("Error al verificar el Puesto");
+    }
+  }
 }
 
 export default PuestoRepository;

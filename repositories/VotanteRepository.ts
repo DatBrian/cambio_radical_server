@@ -8,7 +8,7 @@ class VotanteRepository extends QueriesCommon<IVotante> {
         super(model);
     }
 
-    public async getAll(): Promise<IVotante[]>{
+    public async getAll(): Promise<IVotante[]> {
         try {
             return await this.model.find();
         } catch (error) {
@@ -38,10 +38,8 @@ class VotanteRepository extends QueriesCommon<IVotante> {
     public async getFilteredVotantes(query: any): Promise<any> {
         try {
             const search = query.search;
-            const lider = query.lider;
             const ocupacion = query.ocupacion;
             delete query.search;
-            delete query.lider;
             delete query.ocupacion;
 
             let votantes;
@@ -56,18 +54,6 @@ class VotanteRepository extends QueriesCommon<IVotante> {
                         ...query,
                     });
                 }
-            } else if (lider) {
-                votantes = await this.model.find({
-                    $or: [
-                        {
-                            lider: {
-                                $regex: lider,
-                                $options: "i",
-                            },
-                        },
-                    ],
-                    ...query,
-                });
             } else if (ocupacion) {
                 votantes = await this.model.find({
                     $or: [
@@ -147,6 +133,16 @@ class VotanteRepository extends QueriesCommon<IVotante> {
         } catch (error) {
             console.error("Error al verificar el votante:", error);
             throw new Error("Error al verificar el votante");
+        }
+    }
+
+    public async getLideres() {
+        try {
+            const lideres = await this.model.distinct("lider");
+            return lideres;
+        } catch (error) {
+            console.error("Error al obtener los líderes:", error);
+            throw new Error("Error al obtener los líderes");
         }
     }
 }

@@ -3,6 +3,7 @@ import RouterCommon from "../common/RouterCommon";
 import BarrioController, {
   barrioController,
 } from "../controller/BarrioController";
+import { rolesMiddleware } from "../middleware/RolesMiddleware";
 
 class BarrioRoutes extends RouterCommon<BarrioController> {
   public path: string;
@@ -22,8 +23,13 @@ class BarrioRoutes extends RouterCommon<BarrioController> {
     this.router.get(`${this.path}/id`, (req, res) => {
       this.controller.getBarrioById(req, res);
     });
-    this.router.post(`${this.path}/create`, (req, res) => {
+    this.router.post(`${this.path}/create`,
+      rolesMiddleware.isUser,
+      (req, res) => {
       this.controller.insertBarrio(req, res);
+    });
+    this.router.post(`${this.path}/verifyBarrio`, (req, res) => {
+      this.controller.verifyBarrio(req, res);
     });
     this.router.put(`${this.path}/update`, (req, res) => {
       this.controller.updateBarrio(req, res);
