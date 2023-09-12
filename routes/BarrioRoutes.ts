@@ -24,7 +24,7 @@ class BarrioRoutes extends RouterCommon<BarrioController> {
       this.controller.getBarrioById(req, res);
     });
     this.router.post(`${this.path}/create`,
-      rolesMiddleware.isUser,
+      rolesMiddleware.isAdmin,
       (req, res) => {
       this.controller.insertBarrio(req, res);
     });
